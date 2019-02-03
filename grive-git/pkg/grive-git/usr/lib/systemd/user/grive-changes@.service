@@ -1,0 +1,11 @@
+[Unit]
+Description=Google drive sync (changed files)
+
+[Service]
+ExecStart=/usr/lib/grive/grive-sync.sh listen "%i"
+Type=simple
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=default.target

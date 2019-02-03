@@ -1,0 +1,11 @@
+[Unit]
+Description=Zeromq Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/zeromq_server.service
+RestartSec=15
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,46 @@
+# Maintainer: IanDury
+
+pkgname=domoticz-beta
+pkgver=4.10306
+pkgrel=1
+pkgdesc="Web based home automation"
+arch=('x86_64' 'aarch64' 'armv6h' 'armv7h')
+url="http://www.domoticz.com"
+license=('GPL')
+depends=('libusb-compat' 'curl' 'sqlite' 'boost-libs' 'libcurl-compat')
+#depends=('libusb-compat' 'curl' 'sqlite' 'boost-libs')
+conflicts=('domoticz-svn' 'domoticz-git' 'domoticz')
+install='domoticz-beta.install'
+case $CARCH in
+  armv8*)
+    _target_arch=aarch64
+    ;;
+  arm*)
+    _target_arch=armv7l
+    ;;
+  *)
+    _target_arch=$CARCH
+    ;;
+esac
+
+source=("https://releases.domoticz.com/releases/beta/domoticz_linux_${_target_arch}.tgz"
+        "https://releases.domoticz.com/releases/beta/history_linux_${_target_arch}.txt"
+         'domoticz.service')
+sha256sums=('SKIP' 'SKIP'
+             '8627b3a82db83a0d94c830c007c09ffd38366505fced9c724a7c29414837f3ad')
+
+prepare() {
+ cp /home/home_ssh/dev/pkgbuild/domoticz-beta/domoticz.sh domoticz.sh
+ cp /home/home_ssh/dev/pkgbuild/domoticz-beta/libs.lua scripts/lua/libs.lua
+ cp -r /opt/domoticz/scripts/IR/ scripts/
+}
+
+package() {
+  mkdir -p  "${pkgdir}/opt/domoticz/"
+  cp -R Config domoticz History.txt License.txt scripts server_cert.pem www domoticz.sh "${pkgdir}/opt/domoticz/"
+  mkdir -p "${pkgdir}/usr/lib/systemd/system"
+  cp ../domoticz.service "${pkgdir}/usr/lib/systemd/system/"
+  chown -R http:http "${pkgdir}/opt/domoticz"
+  chmod +x "${pkgdir}/opt/domoticz/domoticz.sh"
+  chmod -R +x "${pkgdir}/opt/domoticz/scripts/IR/"
+}

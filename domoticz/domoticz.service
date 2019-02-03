@@ -1,0 +1,14 @@
+[Unit]
+Description=Domoticz Daemon
+After=network.target
+
+[Service]
+User=http
+ExecStart=/opt/domoticz/domoticz.sh start
+WorkingDirectory=/opt/domoticz
+KillMode=process
+RestartSec=5
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

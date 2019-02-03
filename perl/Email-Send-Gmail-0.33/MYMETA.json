@@ -1,0 +1,39 @@
+{
+   "abstract" : "Send Messages using Gmail",
+   "author" : [
+      "Leon Brocard <acme@astray.com>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "ExtUtils::MakeMaker version 6.44, CPAN::Meta::Converter version 2.150010",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : 2
+   },
+   "name" : "Email-Send-Gmail",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Authen::SASL" : "0",
+            "Email::Address" : "0",
+            "Email::Send" : "0",
+            "Net::SMTP::SSL" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "version" : "0.33",
+   "x_serialization_backend" : "JSON::PP version 2.97001"
+}

@@ -1,0 +1,5 @@
+echo "pacman -Sy zeromq "
+echo "cp zeromq.service /usr/lib/systemd/system/"
+echo "cp ./run_zmq /usr/bin/"
+g++ -Wall -lzmq -o server server.c
+g++ -Wall -lzmq -o run_zmq run_zmq.c

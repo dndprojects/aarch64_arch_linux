@@ -1,0 +1,14 @@
+weblink = "http://livetv.sx/enx/eventinfo/747993_tottenham_chelsea/"
+weblink = "http://livetv.sx/enx/allupcomingsports/1/"
+
+import sqlite3
+import argparse
+import re
+import sys
+from multiprocessing.pool import ThreadPool as Pool
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+r = requests.get(weblink)
+print (r.text)

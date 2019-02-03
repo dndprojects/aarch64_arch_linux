@@ -1,0 +1,26 @@
+pkgbase = grive-git
+	pkgdesc = An open source Linux client for Google Drive with support for the new Drive REST API and partial sync
+	pkgver = 485.cf51167
+	pkgrel = 1
+	url = https://github.com/vitalif/grive2
+	arch = i686
+	arch = x86_64
+	license = GPL2
+	makedepends = cmake
+	makedepends = git
+	makedepends = boost
+	depends = yajl
+	depends = curl
+	depends = libgcrypt
+	depends = boost-libs
+	depends = gcc-libs
+	depends = json-c
+	depends = expat
+	optdepends = cppunit: unit tests
+	optdepends = binutils: backtrace and libiberty
+	provides = grive=485.cf51167
+	conflicts = grive
+	source = grive-git::git+https://github.com/vitalif/grive2
+	sha512sums = SKIP
+
+pkgname = grive-git

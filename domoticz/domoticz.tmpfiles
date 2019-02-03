@@ -1,0 +1,4 @@
+# systemd tmpfile settings for minidlna
+# See tmpfiles.d(5) for details
+
+f /run/domoticz.pid 0755 http http -

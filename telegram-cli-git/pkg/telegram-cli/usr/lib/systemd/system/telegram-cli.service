@@ -1,0 +1,14 @@
+[Unit]
+Description=telegram
+After=network.target sleep.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/telegram-cli -k tg-server.pub -R --log-level 0 -L /dev/null -W -s /root/bin/telegram-cli.lua
+WorkingDirectory=/tmp
+RestartSec=15
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

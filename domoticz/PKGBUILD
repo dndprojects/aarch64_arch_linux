@@ -1,0 +1,51 @@
+# Maintainer: IanDury
+
+pkgname=domoticz
+pkgver=4.9700
+pkgrel=0
+pkgdesc="Web based home automation"
+arch=('aarch64')
+url="http://www.domoticz.com"
+license=('GPL')
+depends=('libusb-compat' 'curl' 'sqlite' 'boost-libs' 'libcurl-compat' 'start-stop-daemon' 'openssl-1.0')
+#depends=('libusb-compat' 'curl' 'sqlite' 'boost-libs')
+conflicts=('domoticz-svn' 'domoticz-git' 'domoticz')
+install='domoticz-beta.install'
+case $CARCH in
+  armv8*)
+    _target_arch=aarch64
+    ;;
+  arm*)
+    _target_arch=armv7l
+    ;;
+  *)
+    _target_arch=$CARCH
+    ;;
+esac
+
+ #        https://releases.domoticz.com/releases/release/domoticz_linux_aarch64.tgz
+source=("https://releases.domoticz.com/releases/release/domoticz_linux_${_target_arch}.tgz"
+        "https://releases.domoticz.com/releases/release/history_linux_${_target_arch}.txt"
+         domoticz.service
+         domoticz.tmpfiles)
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
+
+prepare() {
+ cp /home/home_ssh/dev/pkgbuild/domoticz/domoticz domoticz
+ cp /home/home_ssh/dev/pkgbuild/domoticz/domoticz.sh domoticz.sh
+ cp /home/home_ssh/dev/pkgbuild/domoticz/libs.lua scripts/lua/libs.lua
+ cp -r /home/home_ssh/dev/pkgbuild/domoticz/IR/ scripts/
+ cp -r /home/home_ssh/dev/pkgbuild/domoticz/holiday_check.py scripts/
+}
+
+package() {
+  mkdir -p  "${pkgdir}/opt/domoticz/"
+  cp -R Config domoticz History.txt License.txt scripts server_cert.pem www domoticz.sh "${pkgdir}/opt/domoticz/"
+  mkdir -p "${pkgdir}/usr/lib/systemd/system"
+  cp ../domoticz.service "${pkgdir}/usr/lib/systemd/system/"
+  chown -R http:http "${pkgdir}/opt/domoticz"
+  chmod +x "${pkgdir}/opt/domoticz/domoticz.sh"
+  chmod -R +x "${pkgdir}/opt/domoticz/scripts/IR/"
+  install -Dm0644 "$srcdir"/domoticz.tmpfiles "$pkgdir"/usr/lib/tmpfiles.d/domoticz.conf
+
+}
